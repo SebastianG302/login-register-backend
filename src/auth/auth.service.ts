@@ -77,4 +77,14 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
     return token;
   }
+
+  findAll(): Promise<User[]> {
+    return this.userModel.find();
+  }
+
+  async findUserById(id: string){
+    const user = await this.userModel.findById(id);
+    const { password, ...result } = user.toJSON();
+    return result;
+  }
 }
